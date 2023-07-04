@@ -49,16 +49,6 @@
 
     #endregion
 
-    private String AdminID = "e77d4178-5e50-419e-8c5f-7d148b7bf5e7";
-
-    private Dictionary<string, string> FrequentlyAskedQuestions = new Dictionary<string, string>
-        {
-        { "What are your check-in and check-out times?", "Our check-in time is at 3:00 PM, and check-out time is at 11:00 AM." },
-        { "Do you provide airport transportation?", "Yes, we provide complimentary airport transportation for our guests." },
-        { "Is breakfast included in the room rate?", "Yes, breakfast is included in the room rate. We offer a continental breakfast buffet." }
-    };
-
-
     protected override async Task OnInitializedAsync()
     {
         _hubConnection = new HubConnectionBuilder()
@@ -82,20 +72,8 @@
         await _hubConnection.StartAsync();
     }
 
-
+    // Send the message over SignalR
     private async Task Send() {
-<<<<<<< HEAD
-        if (string.IsNullOrWhiteSpace(_messageContent))
-            return;
-
-        bool isFAQ = FrequentlyAskedQuestions.Any(faq =>
-            _messageContent.Contains(faq.Key, StringComparison.OrdinalIgnoreCase));
-
-        if (isFAQ) {
-            await SendAutomatedResponse();
-            return; 
-        }
-=======
 
         if(string.IsNullOrWhiteSpace(_messageContent))
             return;
@@ -104,54 +82,12 @@
         //var messageContent = _messageContent.Replace("\n", "<br/>");
 
         var message = Chat.CreateMessage(Guid.Parse(MemberId), _messageContent);
->>>>>>> 4f4c3b4c930a03cebdebc828f09a0e9173b95250
 
-        var message = Chat.CreateMessage(Guid.Parse(MemberId), _messageContent);
         _messageContent = string.Empty;
 
-        if (_hubConnection is not null) {
+        if(_hubConnection is not null) {
             await _hubConnection.SendAsync("WriteMessage", Chat.Id, message);
         }
-    }
-
-    private async Task SendAutomatedResponse()
-    {
-        string automatedResponse = GetAnswerForFAQ(_messageContent);
-
-        if (string.IsNullOrWhiteSpace(automatedResponse))
-        {
-            automatedResponse = "Thank you for your inquiry. Here is the answer to your question.";
-        }
-
-        var questionMessage = Chat.CreateMessage(Guid.Parse(MemberId), _messageContent);
-        var automatedMessage = Chat.CreateMessage(Guid.Parse(AdminID), automatedResponse);
-        _messageContent = string.Empty;
-
-        _messages.Add(questionMessage);
-        _messages.Add(automatedMessage);
-
-        bool send = true;
-        /*
-        if (_hubConnection is not null && send)
-        {
-            await _hubConnection.SendAsync("WriteMessage", Chat.Id, questionMessage);
-            await _hubConnection.SendAsync("WriteMessage", Chat.Id, automatedMessage);
-
-            send = false;
-
-        }
-        */
-}
-
-
-    private string GetAnswerForFAQ(string question) {
-        foreach (var faq in FrequentlyAskedQuestions) {
-            if (question.Contains(faq.Key, StringComparison.OrdinalIgnoreCase)) {
-                return faq.Value;
-            }
-        }
-
-        return null;
     }
 
 

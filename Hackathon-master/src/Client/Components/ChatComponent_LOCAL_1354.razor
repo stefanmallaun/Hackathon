@@ -9,19 +9,19 @@
     </div>
     @foreach(var message in _messages)
     {
-        
-    <div class="row mt-2 @(message.CreatedByMember == Guid.Parse(MemberId) ? "justify-content-end" : "justify-content-start" )">
-        <div class="w-auto px-4 py-2 @(message.CreatedByMember == Guid.Parse(MemberId) ? "bg-secondary" : "bg-info" )" style="color: white; border: 1px solid @(message.CreatedByMember == Guid.Parse(MemberId) ? "#f8f9fa" : "#0dcaf0" ); border-radius: 15px">
-            <span>@message.CreatedDateTime.ToString()</span> <!-- Anzeige des Timestamps -->
-            <br />
-            @message.Content <!-- Anzeige des Nachrichteninhalts -->
+
+        <div class="row mt-2 @(message.CreatedByMember == Guid.Parse(MemberId) ? "justify-content-end" : "justify-content-start" )">
+            <div class="w-auto px-4 py-2 @(message.CreatedByMember == Guid.Parse(MemberId) ? "bg-secondary" : "bg-info" )" style="color: white; border: 1px solid @(message.CreatedByMember == Guid.Parse(MemberId) ? "#f8f9fa" : "#0dcaf0" ); border-radius: 15px">
+                <span>@message.CreatedDateTime.ToString()</span> <!-- Anzeige des Timestamps -->
+                <br />
+                @message.Content <!-- Anzeige des Nachrichteninhalts -->
+            </div>
         </div>
-    </div>
     }
     <div class="row mt-auto">
         <div class="col-12">
             <div class="input-group mb-3">
-                <input @bind-value="_messageContent" @bind-value:event="oninput" type="text" class="form-control" placeholder = "Nachricht" aria-describedby="chat-send-button" @onkeydown="HandleKeyPress">
+                <input @bind="_messageContent" type="text" class="form-control" placeholder="Nachricht" aria-describedby="chat-send-button" @onkeydown="HandleKeyPress">
                 <button @onclick="Send" class="btn btn-outline-secondary @(!IsConnected ? "disabled" : null)" type="button" id="chat-send-button">Senden</button>
             </div>
         </div>
@@ -45,7 +45,6 @@
     private HubConnection _hubConnection;
     private string _messageContent = string.Empty;
     private List<Message> _messages = new();
-    
 
     #endregion
 
@@ -84,7 +83,6 @@
 
 
     private async Task Send() {
-<<<<<<< HEAD
         if (string.IsNullOrWhiteSpace(_messageContent))
             return;
 
@@ -95,16 +93,6 @@
             await SendAutomatedResponse();
             return; 
         }
-=======
-
-        if(string.IsNullOrWhiteSpace(_messageContent))
-            return;
-
-        // Ersetzen Sie "\n" durch eine HTML-Zeilenumbruchdarstellung, wenn erforderlich.
-        //var messageContent = _messageContent.Replace("\n", "<br/>");
-
-        var message = Chat.CreateMessage(Guid.Parse(MemberId), _messageContent);
->>>>>>> 4f4c3b4c930a03cebdebc828f09a0e9173b95250
 
         var message = Chat.CreateMessage(Guid.Parse(MemberId), _messageContent);
         _messageContent = string.Empty;
@@ -156,16 +144,12 @@
 
 
     private async Task HandleKeyPress(KeyboardEventArgs e) {
-
         if(e.Key == "Enter") {
-
             if(e.ShiftKey) {
-               _messageContent += Environment.NewLine;
+                _messageContent += "\n";
             }
             else {
-                
                 await Send();
-                
             }
         }
     }
