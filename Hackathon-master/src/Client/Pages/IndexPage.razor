@@ -4,6 +4,8 @@
 
 <PageTitle>Home</PageTitle>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/css/bootstrap.min.css">
+
 <style>
     .centered {
         display: flex;
@@ -15,11 +17,27 @@
 </style>
 
 <div class="centered">
-    
-
     <img src="./Bilder/casablanca_LOGO.jpg" alt="Begrüßungsbild">
     <p>
         <h2>Willkommen auf unserer Chat-Plattform</h2>
         Dies ist ein Projekt der flinken Gewinner<br />
     </p>
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-4 col-sm-12 mb-3">
+            <a href="/reception/e77d4178-5e50-419e-8c5f-7d148b7bf5e7">
+                <button class="btn btn-primary btn-block">Reception</button>
+            </a>
+        </div>
+        <div class="col-md-4 col-sm-12 mb-3">
+            <a href="/chat/1a5d8570-e1c4-43da-9463-f703e5098f38/e77d4178-5e50-419e-8c5f-7d148b7bf5e8">
+                <button class="btn btn-primary btn-block">Guest</button>
+            </a>
+        </div>
+        <div class="col-md-4 col-sm-12 mb-3">
+            <button class="btn btn-primary btn-block" onclick="window.location.href='https://casablanca.at'">Casablanca</button>
+        </div>
+    </div>
 </div>
+
+
