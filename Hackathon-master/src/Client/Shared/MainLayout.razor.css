@@ -18,14 +18,8 @@
 }
 .navbar {
     display: flex;
-    background-color: #cc9610;
+    background-color: #E7B110;
 }
 .pic {
-    padding-top: 5px;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-bottom: 5px;
-}
-.navbar-brand {
-    color = #ffffff; 
+    align-content : flex-start;
 }
