@@ -1,18 +1,22 @@
 ﻿@page "/reception/{MemberId}"
-@using VitualReception.Domain.Model;
+@using VitualReception.Domain.Model
 
-@inject IChatRepository _chatRepository;
+@inject IChatRepository _chatRepository
+
+<PageTitle>Rezeption</PageTitle>
+
+<link rel="icon" href="https://example.com/path/to/your/icon.ico" type="image/x-icon">
 
 <div>
-    @foreach(var chat in _chats)
-    {
+    @foreach (var chat in _chats) {
         <div class="row">
             <div class="col col-md-auto">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">@chat.Name</h5>
-                        @if (GetLastMessage(chat) != null)
-                        { <div class="last-message mb-2">@GetLastMessage(chat)</div> }
+                        @if (GetLastMessage(chat) != null) {
+                            <div class="last-message mb-2">@GetLastMessage(chat)</div>
+                        }
                         <a href="@($"/chat/{chat.Id}/{MemberId}")" class="card-link">Öffnen</a>
                     </div>
                 </div>
@@ -36,17 +40,17 @@
 
     #endregion
 
-    protected override async Task OnInitializedAsync()
-    { _chats = (await _chatRepository.FindAllByMemberAsync(Guid.Parse(MemberId))).ToList(); }
+    protected override async Task OnInitializedAsync() {
+        _chats = (await _chatRepository.FindAllByMemberAsync(Guid.Parse(MemberId))).ToList();
+    }
 
     // Gets the last message of a chat for display in overview.
-    public string GetLastMessage(Chat chat)
-    {
-        if(_message != null)
-        { return _message; }
+    public string GetLastMessage(Chat chat) {
+        if (_message != null) {
+            return _message;
+        }
 
-        if(chat.Messages != null)
-        {
+        if (chat.Messages != null) {
             var messages = chat.Messages
                 .OrderBy(x => x.CreatedDateTime)
                 .Where(x => x.CreatedByMember != Guid.Parse(MemberId))
