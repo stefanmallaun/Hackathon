@@ -17,7 +17,7 @@
     <div class="row mt-auto">
         <div class="col-12">
             <div class="input-group mb-3">
-                <input @bind="_messageContent" type="text" class="form-control" placeholder="Nachricht" aria-describedby="chat-send-button">
+                <input @bind="_messageContent" type="text" class="form-control" placeholder="Nachricht" aria-describedby="chat-send-button" @onkeydown="HandleKeyPress">
                 <button @onclick="Send" class="btn btn-outline-secondary @(!IsConnected ? "disabled" : null)" type="button" id="chat-send-button">Senden</button>
             </div>
         </div>
@@ -69,12 +69,13 @@
 
     // Send the message over SignalR
     private async Task Send() {
-
-        //keine leeren Nachrichten senden
         if(string.IsNullOrWhiteSpace(_messageContent))
             return;
 
-        var message = Chat.CreateMessage(Guid.Parse(MemberId), _messageContent);
+        // Ersetzen Sie "\n" durch eine HTML-Zeilenumbruchdarstellung, wenn erforderlich.
+        var messageContent = _messageContent.Replace("\n", "<br />");
+
+        var message = Chat.CreateMessage(Guid.Parse(MemberId), messageContent);
 
         _messageContent = string.Empty;
 
@@ -82,6 +83,19 @@
             await _hubConnection.SendAsync("WriteMessage", Chat.Id, message);
         }
     }
+
+
+    private async Task HandleKeyPress(KeyboardEventArgs e) {
+        if(e.Key == "Enter") {
+            if(e.ShiftKey) {
+                _messageContent += "\n";
+            }
+            else {
+                await Send();
+            }
+        }
+    }
+
 
     public bool IsConnected => _hubConnection.State == HubConnectionState.Connected;
 
