@@ -18,8 +18,11 @@
 </style>
 
 <div class="centered">
+<<<<<<< HEAD
+    <img src="./Bilder/casablanca_LOGO.png" alt="Begrüßungsbild">
+=======
     <img src="./Bilder/casablanca_LOGO.jpg" onclick="window.location.href='https://casablanca.at'"  alt="Begrüßungsbild">
-    <!--<img src="./Bilder/casablanca_LOGO.png" alt="Begrüßungsbild">-->
+>>>>>>> 4f4c3b4c930a03cebdebc828f09a0e9173b95250
     <p>
         <h2>Willkommen auf unserer Chat-Plattform</h2>
         Dies ist ein Projekt der flinken Gewinner<br />
