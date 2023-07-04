@@ -11,7 +11,11 @@
     {
 
         <div class="row mt-2 @(message.CreatedByMember == Guid.Parse(MemberId) ? "justify-content-end" : "justify-content-start" )">
-            <div class="w-auto px-4 py-2 @(message.CreatedByMember == Guid.Parse(MemberId) ? "bg-secondary" : "bg-info" )" style="color: white; border: 1px solid @(message.CreatedByMember == Guid.Parse(MemberId) ? "#f8f9fa" : "#0dcaf0" ); border-radius: 15px">@message.Content</div>
+            <div class="w-auto px-4 py-2 @(message.CreatedByMember == Guid.Parse(MemberId) ? "bg-secondary" : "bg-info" )" style="color: white; border: 1px solid @(message.CreatedByMember == Guid.Parse(MemberId) ? "#f8f9fa" : "#0dcaf0" ); border-radius: 15px">
+                <span>@message.CreatedDateTime.ToString()</span> <!-- Anzeige des Timestamps -->
+                <br />
+                @message.Content <!-- Anzeige des Nachrichteninhalts -->
+            </div>
         </div>
     }
     <div class="row mt-auto">
