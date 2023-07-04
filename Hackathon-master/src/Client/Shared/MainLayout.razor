@@ -2,15 +2,21 @@
 
 <link rel="icon" href=" C:\Users\malla\Downloads\Icon.ico" type="image/x-icon">
 
+<button style="background-color:@bgcolor" @onclick=SetColor>Click</button>
 
-<div class="topbar shadow-sm">
+<div class="topbar shadow-sm" >
     <nav class="navbar navbar-dark bg-primary">
         <div class="container-fluid">
             <a class="navbar-brand" href="">Chat Applikation</a>
+            <button style="background-color:@bgcolor">Click</button>
         </div>
     </nav>
+
+    <button style="background-color:@bgcolor">Click</button>
+
+
 </div>
-<div class="page">
+<div class="page" style="background-color:@bgcolor">
     <div class="sidebar bg-light shadow-sm">
         <NavMenu />
     </div>
@@ -21,3 +27,16 @@
         </main>
     </div>
 </div>
+
+@code
+{
+    string bgcolor { get; set; } = "white";
+
+    void SetColor()
+    {
+
+        bgcolor = "grey";
+
+       StateHasChanged();
+    }
+}
