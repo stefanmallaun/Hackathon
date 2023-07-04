@@ -1,7 +1,8 @@
 ﻿@page "/chat/{ChatId}/{MemberId}"
 @using VitualReception.Domain.Model;
-
+<PageTitle>Chat</PageTitle>
 @inject IChatRepository _chatRepository;
+
 
 <ChatComponent MemberId="@MemberId" Chat="_chat" />
 
