@@ -84,7 +84,6 @@
 
 
     private async Task Send() {
-<<<<<<< HEAD
         if (string.IsNullOrWhiteSpace(_messageContent))
             return;
 
@@ -95,16 +94,12 @@
             await SendAutomatedResponse();
             return; 
         }
-=======
 
         if(string.IsNullOrWhiteSpace(_messageContent))
             return;
 
         // Ersetzen Sie "\n" durch eine HTML-Zeilenumbruchdarstellung, wenn erforderlich.
         //var messageContent = _messageContent.Replace("\n", "<br/>");
-
-        var message = Chat.CreateMessage(Guid.Parse(MemberId), _messageContent);
->>>>>>> 4f4c3b4c930a03cebdebc828f09a0e9173b95250
 
         var message = Chat.CreateMessage(Guid.Parse(MemberId), _messageContent);
         _messageContent = string.Empty;
